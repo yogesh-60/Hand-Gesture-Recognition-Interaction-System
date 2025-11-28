@@ -1,0 +1,10 @@
+flask==2.2.5
+flask-session==0.4.0
+pyyaml
+python-dotenv
+mediapipe
+opencv-python
+pyautogui
+pycaw
+comtypes
+numpy

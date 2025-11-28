@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}About - Hand Gesture Recognition{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <h1>About This Project</h1>
+  <p>
+    The <strong>Hand Gesture Recognition Interaction System</strong> is an innovative solution designed to enable touchless interaction with computers and devices using hand gestures. Built with advanced computer vision and artificial intelligence technologies, this system offers an intuitive and natural user experience.
+  </p>
+
+  <h3>Key Features</h3>
+  <ul>
+    <li>Real-time hand gesture detection using <a href="https://mediapipe.dev" target="_blank" rel="noopener">Google MediaPipe</a> framework.</li>
+    <li>Uses state-of-the-art machine learning and computer vision techniques to recognize various hand signs accurately.</li>
+    <li>Seamless integration with desktop applications – control media playback, open apps, take screenshots, and more via simple hand gestures.</li>
+    <li>Built on a scalable and maintainable <a href="https://flask.palletsprojects.com/" target="_blank" rel="noopener">Flask</a> web backend with an easy-to-use web dashboard.</li>
+  </ul>
+
+  <h3>How It Works</h3>
+  <p>
+    The system uses your device’s webcam to capture video frames, where a hand landmark detection model identifies 21 key points on the hand in real time. Then, gesture recognition rules analyze the positions of these landmarks to determine which gesture is being made. Recognized gestures trigger pre-defined actions like opening a calculator, controlling volume, or switching applications.
+  </p>
+
+  <h3>Project Purpose</h3>
+  <p>
+    This project was developed to explore and demonstrate the potential of gesture-based controls as an accessible, hygienic, and futuristic way to interact with technology.
+  </p>
+
+
+  <p>
+     For any questions, suggestions, or collaboration, please use the Feedback feature on this platform.
+  </p>
+
+  <h3>References & Resources</h3>
+  <ul>
+    <li><a href="https://mediapipe.dev" target="_blank" rel="noopener">MediaPipe Hands Documentation</a></li>
+    <li><a href="https://flask.palletsprojects.com/" target="_blank" rel="noopener">Flask Web Framework</a></li>
+    <li><a href="https://pyautogui.readthedocs.io/en/latest/" target="_blank" rel="noopener">PyAutoGUI for Automation</a></li>
+  </ul>
+</div>
+{% endblock %}

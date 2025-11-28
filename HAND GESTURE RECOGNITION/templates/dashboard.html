@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Hand Gesture Recognition{% endblock %}
+
+{% block content %}
+<!-- Top navigation bar (for Feedback and About) -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom mb-4">
+  <div class="container-fluid">
+    <div class="ms-auto">
+      <a href="{{ url_for('feedback') }}" class="nav-link d-inline px-3">Feedback</a>
+      <a href="{{ url_for('about') }}" class="nav-link d-inline px-3">About</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-5">
+  <h1 class="mb-4">Welcome, {{ name }}!</h1>
+  <div class="row">
+    <!-- Profile Card -->
+    <div class="col-md-6 mb-4">
+      <div class="card border-primary h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title">Profile</h5>
+          <p>Manage your profile and account settings.</p>
+          <a href="{{ url_for('profile') }}" class="btn btn-primary">Go to Profile</a>
+        </div>
+      </div>
+    </div>
+    <!-- Gesture Recognition Card -->
+    <div class="col-md-6 mb-4">
+      <div class="card border-success h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title">Hand Gesture Recognition Interaction System</h5>
+          <p>Start using the gesture recognition features.</p>
+          <a href="{{ url_for('gesture_recognition') }}" class="btn btn-success">Launch App</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

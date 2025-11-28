@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block title %}Gesture Recognition - Hand Gesture Recognition{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1> Hand Gesture Recognition Interaction System </h1>
+    <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h4 class="card-title mb-3">Start Using Gesture Recognition</h4>
+      <p>This is where gesture recognition features will be accessible.</p>
+
+      <!-- Launch button -->
+      <button class="btn btn-primary mb-4" id="launch-btn">Launch Gesture Recognition </button>
+
+      <h5 class="mb-4">Available Gestures and Actions:</h5>
+
+      <!-- Two-column layout -->
+      <div class="row">
+        <!-- Left Column -->
+        <div class="col-md-6">
+          <ul class="list-unstyled">
+
+            <!-- Thumbs Up -->
+            <li class="mb-4 d-flex align-items-center">
+              <span class="fs-2 me-3">👍</span>
+              <div>
+                <strong>Thumbs Up</strong><br>
+                <small>Action: Ends the Gesture Recognition system.</small>
+              </div>
+            </li>
+
+            <!-- Two Fingers -->
+            <li class="mb-4 d-flex align-items-center">
+              <span class="fs-2 me-3">✌️</span>
+              <div>
+                <strong>Two Fingers</strong><br>
+                <small>Action: Play or pause current media playback.</small>
+              </div>
+            </li>
+
+            <!-- Fist -->
+            <li class="mb-4 d-flex align-items-center">
+              <span class="fs-2 me-3">✊</span>
+              <div>
+                <strong>Fist</strong><br>
+                <small>Action: Closes the current active window (Alt + F4).</small>
+              </div>
+            </li>
+
+            <!-- Three Fingers -->
+            <li class="mb-4 d-flex align-items-center">
+              <span class="fs-2 me-3">🤟</span>
+              <div>
+                <strong>Three Fingers</strong><br>
+                <small>Action: Switch browser tabs (Ctrl + Tab).</small>
+              </div>
+            </li>
+
+            <!-- Four Fingers -->
+            <li class="mb-4 d-flex align-items-center">
+              <span class="fs-2 me-3">🖖</span>
+              <div>
+                <strong>Four Fingers</strong><br>
+                <small>Action: Minimize the current window.</small>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Right Column -->
+        <div class="col-md-6">
+          <ul class="list-unstyled">
+
+            <!-- Five Fingers -->
+            <li class="mb-4 d-flex align-items-center">
+              <span class="fs-2 me-3">🖐️</span>
+              <div>
+                <strong>Five Fingers</strong><br>
+                <small>Action: Maximize the current window.</small>
+              </div>
+            </li>
+
+            <!-- Rock Sign -->
+            <li class="mb-4 d-flex align-items-center">
+              <span class="fs-2 me-3">🤘</span>
+              <div>
+                <strong>Rock Sign</strong><br>
+                <small>Action: Mute or unmute system volume.</small>
+              </div>
+            </li>
+
+            <!-- Open Notepad -->
+            <li class="mb-4 d-flex align-items-center">
+              <span class="fs-2 me-3">👉</span>
+              <div>
+                <strong>Open Notepad</strong><br>
+                <small>Action: Opens Notepad application.</small>
+              </div>
+            </li>
+
+            <!-- OK Sign -->
+            <li class="mb-4 d-flex align-items-center">
+              <span class="fs-2 me-3">👌</span>
+              <div>
+                <strong>OK Sign</strong><br>
+                <small>Action: Opens File Explorer.</small>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('launch-btn').addEventListener('click', () => {
+    fetch('/launch-app', {method: 'POST'})
+      .then(response => response.json())
+      .then(data => alert(data.message))
+      .catch(() => alert('Failed to launch app!'));
+  });
+</script>
+{% endblock %}

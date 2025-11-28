@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Verify OTP - Hand Gesture Recognition{% endblock %}
+
+{% block content %}
+<div class="container mt-5" style="max-width: 400px;">
+  <h2 class="mb-4 text-center">Verify Your OTP</h2>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div>
+        {% for category, message in messages %}
+          <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <form id="otp-form" method="POST" action="{{ url_for('verify_otp') }}" novalidate>
+    <div class="mb-3">
+      <label for="otp" class="form-label">Enter the 6-digit OTP sent to your email:</label>
+      <input type="text" class="form-control text-center fs-4 letter-spacing" id="otp" name="otp" maxlength="6" pattern="^\d{6}$" required autofocus autocomplete="off" inputmode="numeric" aria-describedby="otpHelp">
+      <div class="invalid-feedback">
+        Please enter a valid 6-digit OTP code.
+      </div>
+      <div id="otpHelp" class="form-text">Don't share this code with anyone.</div>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100 py-2">Verify OTP</button>
+  </form>
+
+  <div class="text-center mt-3">
+    <p>Didn't receive the code? <button id="resend-btn" class="btn btn-link p-0">Resend OTP</button></p>
+    <div id="resend-status" class="text-muted small"></div>
+  </div>
+</div>
+
+<style>
+  .letter-spacing {
+    letter-spacing: 0.5em;
+  }
+</style>
+
+<script>
+  (() => {
+    'use strict';
+
+    // Bootstrap 5 form validation
+    const form = document.getElementById('otp-form');
+    form.addEventListener('submit', (event) => {
+      if (!form.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      form.classList.add('was-validated');
+    });
+
+    // Resend OTP button handler
+    document.getElementById('resend-btn').addEventListener('click', () => {
+      const email = "{{ session.get('pending_user') }}";
+      if (!email) {
+        alert('No email found. Please register again.');
+        return;
+      }
+
+      const btn = document.getElementById('resend-btn');
+      const status = document.getElementById('resend-status');
+
+      btn.disabled = true;
+      status.textContent = 'Sending new OTP...';
+
+      fetch('{{ url_for("resend_otp") }}', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          status.textContent = 'OTP sent again. Please check your email.';
+        } else {
+          status.textContent = 'Failed to resend OTP: ' + (data.error || 'Unknown error');
+        }
+      })
+      .catch(() => {
+        status.textContent = 'Network error while resending OTP.';
+      })
+      .finally(() => {
+        setTimeout(() => {
+          btn.disabled = false;
+          status.textContent = '';
+        }, 60000); // 1 minute cooldown before resend allowed again
+      });
+    });
+  })();
+</script>
+{% endblock %}
